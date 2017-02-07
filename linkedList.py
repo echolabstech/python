@@ -9,6 +9,16 @@ class LinkedList:
 	def __init__(self):
 		self.head = None
 
+	def __str__(self):
+		values = []
+		if self.head:
+			node = self.head
+			values.append(node.data)
+			while node.next:
+				node = node.next
+				values.append(node.data)
+		return str(values)
+
 	def push(self, data):
 		newNode = self.Node(data)
 		newNode.next = self.head
@@ -47,3 +57,6 @@ if __name__ == '__main__':
 	print("append an element to the end of the list");
 	node = list.append(40)
 	print(node)
+
+	print("all nodes")
+	print(list)
