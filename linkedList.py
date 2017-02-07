@@ -22,11 +22,15 @@ class LinkedList:
 		return newNode
 
 	def append(self, data):
-		node = self.head
-		while node.next:
-			node = node.next
 		newNode = self.Node(data)
-		node.next = newNode
+		
+		if self.head is None:
+			self.head = newNode
+		else:
+			node = self.head
+			while node.next:
+				node = node.next
+			node.next = newNode
 		return newNode
 
 if __name__ == '__main__':
