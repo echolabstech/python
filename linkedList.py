@@ -26,10 +26,25 @@ class LinkedList:
 		return newNode
 
 	def insertAfter(self, oldNode, data):
+		if not self._findNode(oldNode):
+			raise KeyError('node {} not found'.format(oldNode.data))
 		newNode = self.Node(data)
 		newNode.next = oldNode.next
 		oldNode.next = newNode
 		return newNode
+
+	def _findNode(self, targetNode):
+		node = self.head
+		if node:
+			if node is targetNode:
+				return True
+			else:
+				while node.next:
+					if node.next is targetNode:
+						return True
+					else:
+						node = node.next
+		return False
 
 	def append(self, data):
 		newNode = self.Node(data)
@@ -65,17 +80,20 @@ if __name__ == '__main__':
 	node = list.push(20)
 	print(node)
 
-	# throw an exception if node is None
-	print("insert an element after another node");
-	node = list.insertAfter(node, 30)
-	print(node)
+	try:
+		print("insert an element after another element");
+		newNode = 30
+		node = list.insertAfter(node, newNode)
+		print(node)
+	except KeyError as e:
+		print('could not insert {0} because {1}'.format(newNode, e))
 
 	print("append an element to the end of the list");
 	node = list.append(40)
 	print(node)
 
-	print("delete node {}".format(node.data))
+	print("delete element {}".format(node.data))
 	list.delete(node.data)
 
-	print("all nodes")
+	print("all elements")
 	print(list)
