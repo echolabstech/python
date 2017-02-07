@@ -34,7 +34,7 @@ class LinkedList:
 	def append(self, data):
 		newNode = self.Node(data)
 		
-		if self.head is None:
+		if not self.head:
 			self.head = newNode
 		else:
 			node = self.head
@@ -43,6 +43,21 @@ class LinkedList:
 			node.next = newNode
 		return newNode
 
+	def delete(self, key):
+		if self.head:
+			node = self.head
+			if node.data == key:
+				self.head = node.next
+				return True
+			else:
+				while node.next:
+					if node.next.data == key:
+						node.next = node.next.next
+						return True
+					else:
+						node = node.next
+		return False
+
 if __name__ == '__main__':
 	list = LinkedList()
 	
@@ -50,6 +65,7 @@ if __name__ == '__main__':
 	node = list.push(20)
 	print(node)
 
+	# throw an exception if node is None
 	print("insert an element after another node");
 	node = list.insertAfter(node, 30)
 	print(node)
@@ -57,6 +73,9 @@ if __name__ == '__main__':
 	print("append an element to the end of the list");
 	node = list.append(40)
 	print(node)
+
+	print("delete node {}".format(node.data))
+	list.delete(node.data)
 
 	print("all nodes")
 	print(list)
