@@ -10,20 +10,18 @@ def swapIndex(array, left, right):
 def selectionsort(array):
 	k=0
 	while(k < len(array)-1):
-		i=k
+		i=k+1
 		indexOfSmallest = k
-		while(i < len(array)-1):
-			if array[k] > array[i+1]:
-				if array[indexOfSmallest] > array[i+1]:
-					indexOfSmallest = i+1
+		while(i < len(array)):
+			if array[indexOfSmallest] > array[i]:
+				indexOfSmallest = i
 			i +=1
 		swapIndex(array, k, indexOfSmallest)
-		print(array)
 		k += 1
 
 if __name__ == "__main__":
 	seed()
-	array = [x for x in sample(range(100), k=5)]
+	array = [x for x in sample(range(10), k=5)]
 	print("before:",array)
 	selectionsort(array)
 	print("after:",array)
