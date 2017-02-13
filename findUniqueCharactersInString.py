@@ -1,14 +1,11 @@
-import hashtable
+# Major Sapp III 02/12/2017
 
-def has_duplicate_chars(string):
-	container = ""
+# time: O(n**2) space: O(1)
+def has_unique_chars(string):
 	for k,c in enumerate(string, start=0):
-		if c not in container:
-			container += c
-		else:
-			return True
-	return False
+		if c in string[k+1:]:
+			return False
+	return True
 
 if __name__ == "__main__":
-	string = "bcasdf"
-	print(has_duplicate_chars(string))
+	print(has_unique_chars("abcdef"))
