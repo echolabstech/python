@@ -1,5 +1,6 @@
 import aiohttp
 import asyncio
+import time
 
 API_KEY = 'AIzaSyDSc4h-R_ByHJAr7wzPeqEHne9hkaMIa4w';
 UUID = '111456584073054736246';
@@ -9,6 +10,7 @@ URLS = {
 }
 
 async def fetch(session, url):
+    print(f'requesting {url}')
     async with session.get(url) as response:
         return await response.text()
 
@@ -19,14 +21,17 @@ async def search_books_for(search_term):
     async with aiohttp.ClientSession() as session:
         url = URLS['search'] + search_term
         html = await fetch(session, url)
-        print(html)
+        print(f'succesfully searched {search_term}')
 
 async def main():
-    search_terms = ['star wars']
+    start = time.perf_counter()
+    search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek']
     tasks = []
     for search_term in search_terms:
         tasks.append(asyncio.create_task(search_books_for(search_term)))
     await asyncio.gather(*tasks)
+    stop = time.perf_counter()
+    print(f'time: {start-stop:0.5f}')
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
