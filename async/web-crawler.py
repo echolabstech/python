@@ -32,6 +32,7 @@ async def fetch_html(url: str, session: ClientSession, **kwargs) -> str:
     kwargs are passed to `session.request()`.
     """
 
+    logger.info("Request URL: %s", url)
     resp = await session.request(method="GET", url=url, **kwargs)
     resp.raise_for_status()
     logger.info("Got response [%s] for URL: %s", resp.status, url)
