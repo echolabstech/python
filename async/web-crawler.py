@@ -60,7 +60,7 @@ async def parse(url: str, session: ClientSession, **kwargs) -> set:
             "Non-aiohttp exception occured:  %s", getattr(e, "__dict__", {})
         )
         return found
-    else:
+    else: # this else logic blocks. Can make it non blocking with loop.run_in_executor()
         for link in HREF_RE.findall(html):
             try:
                 abslink = urllib.parse.urljoin(url, link)
