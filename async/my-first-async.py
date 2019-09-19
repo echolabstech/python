@@ -1,3 +1,6 @@
+import aiohttp
+import asyncio
+
 API_KEY = 'AIzaSyDSc4h-R_ByHJAr7wzPeqEHne9hkaMIa4w';
 UUID = '111456584073054736246';
 
