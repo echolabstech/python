@@ -8,11 +8,13 @@ todo:
 import aiohttp
 import asyncio
 import time
+import random
 
 API_KEY = 'AIzaSyDSc4h-R_ByHJAr7wzPeqEHne9hkaMIa4w';
 UUID = '111456584073054736246';
 
 URLS = {
+    'test': 'http://localhost:8001/',
     'search': 'https://www.googleapis.com/books/v1/volumes?q=',
 }
 
@@ -26,7 +28,7 @@ async def search_books_for(search_term):
     query_param = search_term.lower().split(' ');
     query_param = '+'.join(query_param)
     async with aiohttp.ClientSession() as session:
-        url = URLS['search'] + search_term
+        url = URLS['test'] + search_term
         html = await fetch(session, url)
         print(f'succesfully searched {search_term}')
 
@@ -45,15 +47,13 @@ async def handle_book_search_result(results):
     # await request result added to queue
     # parse request result (i.e. print for now)
 
+def test_batch_search_terms():
+    all_search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek', 
+                        'Stargate'] * 2
+    return all_search_terms[:random.randint(1, 3)]
+
 async def main():
-    start = time.perf_counter()
-    search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek']
-    tasks = []
-    for search_term in search_terms:
-        tasks.append(asyncio.create_task(search_books_for(search_term)))
-    await asyncio.gather(*tasks)
-    stop = time.perf_counter()
-    print(f'time: {start-stop:0.5f}')
+    test_BATCH_DELAY = 1
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
