@@ -23,6 +23,21 @@ async def search_books_for(search_term):
         html = await fetch(session, url)
         print(f'succesfully searched {search_term}')
 
+async def produce_book_search_term(queue, search_term):
+    pass
+    # await new book search term
+    # await access to queue and put search request into queue
+
+async def consume_book_search_term(queue):
+    pass
+    # await search request to be added to queue
+    # await request result and add result to queue
+
+async def handle_book_search_result(results):
+    pass
+    # await request result added to queue
+    # parse request result (i.e. print for now)
+
 async def main():
     start = time.perf_counter()
     search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek']
