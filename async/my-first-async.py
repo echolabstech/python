@@ -54,6 +54,12 @@ def test_batch_search_terms():
 
 async def main():
     test_BATCH_DELAY = 1
+    while True:
+        tasks = []
+        for search_term in test_batch_search_terms():
+            tasks.append(asyncio.create_task(search_books_for(search_term)))
+        await asyncio.gather(*tasks)
+        await asyncio.sleep(test_BATCH_DELAY)
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
