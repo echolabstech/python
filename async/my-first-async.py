@@ -3,6 +3,7 @@ todo:
 1. make tests (pytest)
 2. move timers, array of book search terms, into tests
 3. blocks if fetch takes along time to respond "print(f'requesting {url}')"
+4. exception handling
 """
 
 import aiohttp
