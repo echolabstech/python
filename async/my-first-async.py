@@ -10,6 +10,7 @@ import asyncio
 import time
 import random
 
+
 API_KEY = 'AIzaSyDSc4h-R_ByHJAr7wzPeqEHne9hkaMIa4w';
 UUID = '111456584073054736246';
 
@@ -18,8 +19,16 @@ URLS = {
     'search': 'https://www.googleapis.com/books/v1/volumes?q=',
 }
 
+
 def get_url(url, search_term=''):
     return URLS[url] + search_term
+
+
+def test_batch_search_terms():
+    all_search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek',
+                        'Stargate'] * 2
+    return all_search_terms[:random.randint(1, 3)]
+
 
 async def fetch(session, url):
     print(f'requesting {url}')
@@ -30,6 +39,7 @@ async def fetch(session, url):
         await asyncio.sleep(test_MOCK_RESPONSE_DELAY)
 
         return html
+
 
 async def search_books_for(queue, search_term):
     """
@@ -45,6 +55,7 @@ async def search_books_for(queue, search_term):
         url = get_url('search', search_term)
         await queue.put((await fetch(session, url), url, start))
 
+
 async def handle_book_search_result(queue):
     """
     consumer
@@ -55,10 +66,6 @@ async def handle_book_search_result(queue):
     stop = time.perf_counter()
     print(f'recieved response from {url} in {stop - start:0.5f} seconds')
 
-def test_batch_search_terms():
-    all_search_terms = ['star wars', 'pale blue dot', 'game of thrones', 'star trek', 
-                        'Stargate'] * 2
-    return all_search_terms[:random.randint(1, 3)]
 
 async def main():
     queue = asyncio.Queue()
@@ -68,6 +75,7 @@ async def main():
             asyncio.create_task(handle_book_search_result(queue))
         test_MOCK_RECEIVE_SEARCH_TERM_DELAY = random.randint(1, 3)
         await asyncio.sleep(test_MOCK_RECEIVE_SEARCH_TERM_DELAY)
+
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
