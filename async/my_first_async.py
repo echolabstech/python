@@ -4,6 +4,7 @@ todo:
 2. move timers, array of book search terms, into tests
 3. blocks if fetch takes along time to respond "print(f'requesting {url}')"
 4. exception handling
+5. remove api key & uuid from codebase, and reset api key in google
 """
 
 import aiohttp
