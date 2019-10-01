@@ -30,14 +30,17 @@ async def search_books_for(queue, search_term, url=None):
         query_param = search_term.lower().split(' ');
         query_param = '+'.join(query_param)
         url = url if url else 'https://www.googleapis.com/books/v1/volumes?q=' + query_param
-        await queue.put((await fetch(session, url), url))
+        search_results = await fetch(session, url)
+        await queue.put((url, search_results))
 
 
 async def handle_book_search_result(queue):
     """
     acts as a consumer, retrieving request results from queue
     """
-    search_results, url = await queue.get()
+    url, search_results = await queue.get()
+    print(f'response from {url}')
+    return url, search_results
 
 
 async def main(search_terms, url=None):
