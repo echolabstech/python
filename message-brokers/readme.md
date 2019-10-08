@@ -11,7 +11,9 @@
 		5. sudo rabbitmqctl set_permissions -p major_host major ".*" ".*" ".*"
 4. run rabbitmq-server
 5. pip install celery
-6. run celery worker -A tasks -l INFO -n worker1
+6. run redis-server
+7. run django server python manage.py runserver
+8. run celery worker -A tasks -l INFO -n worker1
 	- worker -A means run app in a dedicated worker process
 	- tasks is tasks.py app
 	- the -l INFO is verbose log level
